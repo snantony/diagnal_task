@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from "react";
 
-function App() {
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { selectMovieList } from "./redux/contentList/contentList.selectors";
+import { onFetchList } from './redux/contentList/contentList.actions';
+
+import Movie from "./components/Movie.component/Movie.component";
+
+import style from "./App.module.css";
+
+const App = (props) => {
+  console.log(props);
+  const { collection, getContentList } = props;
+  useEffect(()=>{
+    getContentList({pageNo:1});
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={style.mainContiner}>
+      {collection.movieList.map((item) => {
+        return (
+          <Movie
+            imageUrl={`http://localhost:8080/images/${item["poster-image"]}`}
+            title={item.name}
+          />
+        );
+      })}
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  collection: selectMovieList,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getContentList: (config) => dispatch(onFetchList(config))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
