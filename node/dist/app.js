@@ -7,9 +7,10 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var routes_1 = __importDefault(require("./routes/routes"));
+var path_2 = __importDefault(require("./utils/path"));
 var app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
-app.use("/images", express_1.default.static(path_1.default.join(__dirname, "images")));
+app.use("/images", express_1.default.static(path_1.default.join(path_2.default, "data", "images")));
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");

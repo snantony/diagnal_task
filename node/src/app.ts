@@ -4,12 +4,13 @@ import path from "path";
 import bodyParser from "body-parser";
 
 import routes from "./routes/routes";
+import rootPath from "./utils/path";
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(rootPath, "data", "images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

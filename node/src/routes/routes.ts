@@ -1,9 +1,9 @@
-import {Router} from 'express';
+import { Router } from "express";
 
-import {fetchContents} from '../controller/controller'
+import { fetchContents } from "../controller/controller";
 
 const routes = Router();
 
-routes.get('/:pageNo',fetchContents);
+routes.get("/:pageNo", fetchContents);
 
 export default routes;
