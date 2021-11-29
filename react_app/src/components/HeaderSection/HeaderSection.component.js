@@ -13,8 +13,7 @@ import backIcon from "../../assets/images/Back.png";
 import style from "./headerSection.module.css";
 
 const HeaderSection = (props) => {
-    console.log(props);
-  const { title, onSearch, query, setQuery, setPageNo } = props;
+  const { title, onSearch, query, setQuery, setPageNo, setFetchType } = props;
   const [toogleSearch,setToogleSearch] = useState(false);
   const handelToogle = ()=>{
     setToogleSearch(state=>!state);
@@ -23,7 +22,8 @@ const HeaderSection = (props) => {
       const {value} = e.target;
       setQuery(value);
       setPageNo(1);
-      onSearch({ pageNo:1, query: value, type:'search' });
+      setFetchType('search');
+      // onSearch({ pageNo:1, query: value, type:'search' });
   }
   return (
     <div className={style.headerContainer}>

@@ -15,29 +15,38 @@ import Movie from "../Movie/Movie.component";
 import style from "./movieListContainer.module.css";
 
 const MovieListContainer = (props) => {
-  console.log('MovieListContainer',props);
-  const { collection, pagesFetched, totalItems, getContentList, pageNo, setPageNo, query  } = props;
-
+  const {
+    collection,
+    pagesFetched,
+    totalItems,
+    getContentList,
+    pageNo,
+    setPageNo,
+    query,
+    fetchType,
+    setFetchType,
+  } = props;
   useEffect(() => {
-    getContentList({ pageNo, query, type:'scroll' });
-  }, [pageNo, query, getContentList]);
+    getContentList({ pageNo, query, type: fetchType });
+  }, [pageNo, query, getContentList, fetchType]);
 
   const observer = useRef();
   const lastBookElementRef = useCallback(
     (node) => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && totalItems > pagesFetched) {
+        if (entries[0].isIntersecting && totalItems > pagesFetched) {    
+          setFetchType('scroll');
           setPageNo((prevPageNumber) => prevPageNumber + 1);
         }
       });
       if (node) observer.current.observe(node);
     },
-    [pagesFetched, totalItems, setPageNo]
+    [pagesFetched, totalItems]
   );
 
   const renderList = () => {
-    const refItemIndex = (collection.length * 3) / 4 - 1;
+    const refItemIndex = parseInt((collection.length * 3) / 4 - 1);
     return collection.map((item, index) => {
       if (refItemIndex === index) {
         return (

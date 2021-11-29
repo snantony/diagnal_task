@@ -19,27 +19,19 @@ export function* getMoviesList({ payload }) {
         q: query,
       },
     });
-    console.log(res);
-    const { page } = res.data.message.data;
+    const { fileData, totalCount, totalDataFetched } = res.data.message.data;
+    const { page } = fileData;
+    const payload = {
+      title: page.title,
+      data: page["content-items"].content,
+      totalItems: totalCount,
+      pagesFetched: totalDataFetched,
+    };
     if (type === "search") {
-      yield put(
-        setSearchedContentList({
-          title: page.title,
-          data: page["content-items"].content,
-          totalItems: page["total-content-items"],
-          pagesFetched: page["page-size-returned"],
-        })
-      );
+      yield put(setSearchedContentList(payload));
     }
     if (type === "scroll") {
-      yield put(
-        setContentList({
-          title: page.title,
-          data: page["content-items"].content,
-          totalItems: page["total-content-items"],
-          pagesFetched: page["page-size-returned"],
-        })
-      );
+      yield put(setContentList(payload));
     }
   } catch (error) {
     yield put(setError(error));
@@ -50,10 +42,10 @@ export function* onFetch() {
   yield takeLatest(ContentListActionTypes.ON_FETCHING_LIST, getMoviesList);
 }
 
-export function* onSearch() {
-  yield takeLatest(ContentListActionTypes.ON_SEARCH, getMoviesList);
-}
+// export function* onSearch() {
+//   yield takeLatest(ContentListActionTypes.ON_SEARCH, getMoviesList);
+// }
 
 export function* contentListSagas() {
-  yield all([call(onFetch), call(onSearch)]);
+  yield all([call(onFetch)]);
 }
