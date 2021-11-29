@@ -31,7 +31,7 @@ const HeaderSection = (props) => {
       {
           toogleSearch?<input type="text" value={query} onChange={e=>handelOnChage(e)} />:<h1>{title}</h1>
       }
-      <button type="button" onClick={handelToogle} className={style.shiftRight}><img src={searchIcon} alt="search icon" /></button>
+      <button type="button" onClick={handelToogle} className={`${style.shiftRight} ${style.searchBtn}`}><img src={searchIcon} alt="search icon" /></button>
     </div>
   );
 };
