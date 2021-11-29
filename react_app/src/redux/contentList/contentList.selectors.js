@@ -16,3 +16,8 @@ export const selectPagesFetched = createSelector(
   [selectContentList],
   contentList => contentList.pagesFetched
 );
+
+export const selectTitle = createSelector(
+  [selectContentList],
+  contentList => contentList.title
+);

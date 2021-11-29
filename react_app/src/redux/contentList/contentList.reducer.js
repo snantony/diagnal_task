@@ -1,6 +1,7 @@
 import ContentListActionTypes from "./contentList.types";
 
 const INITIAL_STATE = {
+  title: "",
   movieList: [],
   totalItems: 0,
   pagesFetched: 0,
@@ -10,15 +11,25 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ContentListActionTypes.SET_CONTENT_LIST:
-      const {data,totalItems,pagesFetched} = action.payload;
-      if(totalItems < state.pagesFetched){
+      const { data, totalItems, pagesFetched, title } = action.payload;
+      if (totalItems < state.pagesFetched) {
         return state;
       }
       return {
         ...state,
-        movieList: [...state.movieList,...data],
+        title: title,
+        movieList: [...state.movieList, ...data],
         totalItems: totalItems,
-        pagesFetched: state.pagesFetched+parseInt(pagesFetched),
+        pagesFetched: state.pagesFetched + parseInt(pagesFetched),
+        error: null,
+      };
+    case ContentListActionTypes.SET_SEARCHED_CONTENT_LIST:
+      return {
+        ...state,
+        title: action.payload.title,
+        movieList: action.payload.data,
+        totalItems: action.payload.totalItems,
+        pagesFetched: parseInt(action.payload.pagesFetched),
         error: null,
       };
     case ContentListActionTypes.SET_ERROR:

@@ -15,10 +15,11 @@ import Movie from "../Movie/Movie.component";
 import style from "./movieListContainer.module.css";
 
 const MovieListContainer = (props) => {
+  console.log('MovieListContainer',props);
   const { collection, pagesFetched, totalItems, getContentList, pageNo, setPageNo, query  } = props;
 
   useEffect(() => {
-    getContentList({ pageNo, query });
+    getContentList({ pageNo, query, type:'scroll' });
   }, [pageNo, query, getContentList]);
 
   const observer = useRef();

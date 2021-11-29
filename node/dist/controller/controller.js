@@ -1,4 +1,9 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,6 +20,13 @@ var fetchContents = function (req, res, next) {
     var pageNo = req.params.pageNo;
     var q = req.query.q;
     var data = getFile("CONTENTLISTINGPAGE-PAGE" + pageNo + ".json");
+    if (q && typeof q === 'string') {
+        var arrayCopy = __spreadArray([], data.page["content-items"].content);
+        data.page["content-items"].content = arrayCopy.filter(function (item) {
+            console.log(q, item);
+            return item.name.toLocaleLowerCase().startsWith(("" + q).toLocaleLowerCase());
+        });
+    }
     res.status(200).json({ message: { data: data, pageNo: pageNo, q: q } });
 };
 exports.fetchContents = fetchContents;

@@ -1,11 +1,23 @@
-.movieContainer{
+.headerContainer{
     color: white;
     display: flex;
-    flex-direction: column;
-    width: 10em;
+    align-items: center;
 }
 
-.movieContainer label{
-    font-size: 1.5em;
-    margin-top: 0.5em;
+.headerContainer img{
+    height: 1.5em;
+    margin-right: 1em;
+}
+
+.headerContainer h1{
+    font-weight: lighter;
+}
+
+.headerContainer button{
+    background: transparent;
+    border: none;
+}
+
+.shiftRight{
+    margin-left: auto;
 }
