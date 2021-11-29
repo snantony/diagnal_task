@@ -12,7 +12,9 @@ var getFile = function (fileName) {
     return JSON.parse(fs_1.default.readFileSync(filePath, "utf8"));
 };
 var fetchContents = function (req, res, next) {
-    var data = getFile("CONTENTLISTINGPAGE-PAGE1.json");
-    res.status(200).json({ message: data });
+    var pageNo = req.params.pageNo;
+    var q = req.query.q;
+    var data = getFile("CONTENTLISTINGPAGE-PAGE" + pageNo + ".json");
+    res.status(200).json({ message: { data: data, pageNo: pageNo, q: q } });
 };
 exports.fetchContents = fetchContents;

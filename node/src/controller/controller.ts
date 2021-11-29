@@ -11,6 +11,8 @@ const getFile = (fileName: string) => {
 };
 
 export const fetchContents: RequestHandler = (req, res, next) => {
-  const data = getFile("CONTENTLISTINGPAGE-PAGE1.json");
-  res.status(200).json({ message: data });
+  const { pageNo } = req.params;
+  const { q } = req.query;
+  const data = getFile(`CONTENTLISTINGPAGE-PAGE${pageNo}.json`);
+  res.status(200).json({ message: { data, pageNo, q } });
 };

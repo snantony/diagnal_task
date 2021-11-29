@@ -4,5 +4,15 @@ const selectContentList = state => state.contentList;
 
 export const selectMovieList = createSelector(
   [selectContentList],
-  contentList => contentList
+  contentList => contentList.movieList
+);
+
+export const selectTotalItems = createSelector(
+  [selectContentList],
+  contentList => contentList.totalItems
+);
+
+export const selectPagesFetched = createSelector(
+  [selectContentList],
+  contentList => contentList.pagesFetched
 );
