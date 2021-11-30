@@ -35,8 +35,8 @@ const MovieListContainer = (props) => {
     (node) => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && totalItems > pagesFetched) {    
-          setFetchType('scroll');
+        if (entries[0].isIntersecting && totalItems > pagesFetched) {
+          setFetchType("scroll");
           setPageNo((prevPageNumber) => prevPageNumber + 1);
         }
       });
@@ -47,19 +47,20 @@ const MovieListContainer = (props) => {
 
   const renderList = () => {
     const refItemIndex = parseInt((collection.length * 3) / 4 - 1);
+    const imageUrl = "https://diagnal-node-app.herokuapp.com/images";
     return collection.map((item, index) => {
       if (refItemIndex === index) {
         return (
           <Movie
             ref={lastBookElementRef}
-            imageUrl={`http://localhost:8080/images/${item["poster-image"]}`}
+            imageUrl={`${imageUrl}/${item["poster-image"]}`}
             title={item.name}
           />
         );
       }
       return (
         <Movie
-          imageUrl={`http://localhost:8080/images/${item["poster-image"]}`}
+          imageUrl={`${imageUrl}/${item["poster-image"]}`}
           title={item.name}
         />
       );

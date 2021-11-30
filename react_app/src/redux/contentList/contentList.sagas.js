@@ -14,7 +14,7 @@ export function* getMoviesList({ payload }) {
   try {
     const res = yield axios({
       method: "GET",
-      url: `http://localhost:8080/contents/${pageNo}`,
+      url: `https://diagnal-node-app.herokuapp.com/contents/${pageNo}`,
       params: {
         q: query,
       },
